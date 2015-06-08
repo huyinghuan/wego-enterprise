@@ -74,7 +74,7 @@
   
 ```coffee
   ###
-    ＠params {string | array<string> } 用户ID 或者 ID数组 。必须
+    @params {string | array<string> } 用户ID 或者 ID数组 。必须
     @params {string} 消息内容。 必须
     @params {Function} 回调函数, 自定义。 可选
       该回调函数 Function 应该接收以下参数

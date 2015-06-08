@@ -1,0 +1,104 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.38
+4 verbose publish [ '.' ]
+5 verbose cache add [ '.', null ]
+6 verbose cache add name=undefined spec="." args=[".",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: '.',
+7 verbose parsed url   path: '.',
+7 verbose parsed url   href: '.' }
+8 silly lockFile 3a52ce78- .
+9 verbose lock . /home/ec/.npm/3a52ce78-.lock
+10 verbose tar pack [ '/home/ec/.npm/wego-enterprise/0.0.1/package.tgz', '.' ]
+11 verbose tarball /home/ec/.npm/wego-enterprise/0.0.1/package.tgz
+12 verbose folder .
+13 info prepublish wego-enterprise@0.0.1
+14 verbose unsafe-perm in lifecycle true
+15 silly lockFile 1f1177db-tar tar://.
+16 verbose lock tar://. /home/ec/.npm/1f1177db-tar.lock
+17 silly lockFile c244d145-ego-enterprise-0-0-1-package-tgz tar:///home/ec/.npm/wego-enterprise/0.0.1/package.tgz
+18 verbose lock tar:///home/ec/.npm/wego-enterprise/0.0.1/package.tgz /home/ec/.npm/c244d145-ego-enterprise-0-0-1-package-tgz.lock
+19 silly lockFile 1f1177db-tar tar://.
+20 silly lockFile 1f1177db-tar tar://.
+21 silly lockFile c244d145-ego-enterprise-0-0-1-package-tgz tar:///home/ec/.npm/wego-enterprise/0.0.1/package.tgz
+22 silly lockFile c244d145-ego-enterprise-0-0-1-package-tgz tar:///home/ec/.npm/wego-enterprise/0.0.1/package.tgz
+23 silly lockFile bc1cddf2-pm-wego-enterprise-0-0-1-package /home/ec/.npm/wego-enterprise/0.0.1/package
+24 verbose lock /home/ec/.npm/wego-enterprise/0.0.1/package /home/ec/.npm/bc1cddf2-pm-wego-enterprise-0-0-1-package.lock
+25 silly lockFile bc1cddf2-pm-wego-enterprise-0-0-1-package /home/ec/.npm/wego-enterprise/0.0.1/package
+26 silly lockFile bc1cddf2-pm-wego-enterprise-0-0-1-package /home/ec/.npm/wego-enterprise/0.0.1/package
+27 silly lockFile 3a52ce78- .
+28 silly lockFile 3a52ce78- .
+29 silly publish { name: 'wego-enterprise',
+29 silly publish   version: '0.0.1',
+29 silly publish   description: '微信企业号 node版 API',
+29 silly publish   homepage: 'https://github.com/huyinghuan/wego-enterprise',
+29 silly publish   bugs:
+29 silly publish    { url: 'https://github.com/huyinghuan/wego-enterprise/issues',
+29 silly publish      email: 'ec.huyinghuan@gmail.com' },
+29 silly publish   keywords: [ '微信', '微信企业号' ],
+29 silly publish   author: { name: 'ec.huyinghuan@gmail' },
+29 silly publish   dependencies: { lodash: '^3.9.3', request: '^2.57.0' },
+29 silly publish   devDependencies: { should: '^6.0.3' },
+29 silly publish   license: 'MIT',
+29 silly publish   main: 'index.js',
+29 silly publish   scripts:
+29 silly publish    { pretest: 'coffee --no-header -o ./ -c src/',
+29 silly publish      prepublish: 'coffee --no-header -o ./ -c src/' },
+29 silly publish   readme: '微信企业号\n----------------\n  微信企业号 node库, 基于官方API接口封装\n  \n##安装\n\n```\n  npm install wego-enterprise\n```\n\n\n## 说明\n 1. 该包使用 Mocha 进行测试\n 2. 所有测试文件在 test目录下\n 3. 运行测试前请根据```example_config.coffee```进行相关操作，保证测试用例跑起来\n \n \n## API 文档\n\n### AccessToken\n\n  获取访问微信接口使用的token\n  \n#### 构造函数\n\n```coffee\n  ###\n    构造函数\n    @params {string} 开发者凭据 CorpID\n    @params {string} 开发者凭据 Secret\n    \n    @return {AccessToken}\n  ###\n  accessToken = new AccessToken(CorpID, Secret)\n```\n\n#### get\n\n  获取 token\n  \n```coffee\n  ###\n    @params {function} 回调函数\n      该回调函数应该接收以下参数：\n        @params {object | string | null} 获取token出错的信息\n        @params {string} 获取的token\n  \n    @return null\n  ###\n  \n  accessToken.get(callback)\n```\n\n### Message\n\n  消息发送接口\n  \n#### 构造函数\n\n```coffee\n  ###\n    @params {string}  接口访问token\n    @params {string}  应用id\n    \n    @return {Message}\n  ###\n  \n  message = new Message(token, agentid)\n```\n\n#### sendText\n\n  发送文本消息\n  \n```coffee\n  ###\n    @params {string | array<string> } 用户ID 或者 ID数组 。必须\n    @params {string} 消息内容。 必须\n    @params {Function} 回调函数, 自定义。 可选\n      该回调函数 Function 应该接收以下参数\n        @params {object | null}  错误堆栈，如果没有发生错误则为null\n        @params {number} 消息发送结果状态\n          500 请求错误或者网络错误\n          403 token 过期\n          200 发送成功\n          400 未知错误\n        @params {object | null | undefined} 服务器返回的具体结果\n    \n    @return null\n  ###\n  message.sendText(userID, content, callback)\n```\n\n#### setToken\n\n  token失效后 重新设置 token\n  \n```coffee\n  ###\n    @params {string} token\n    @return {null}\n  ###\n  message.setToken(token)\n```',
+29 silly publish   readmeFilename: 'README.md',
+29 silly publish   gitHead: '068e4b39d20e69c5a20d42fda5f7642e8f6dd0b9',
+29 silly publish   _id: 'wego-enterprise@0.0.1',
+29 silly publish   _shasum: 'ad28f40f712a5ee1de4f4b70f77b14de965278ec',
+29 silly publish   _from: '.' }
+30 verbose request where is /wego-enterprise
+31 verbose request registry https://registry.npmjs.org/
+32 verbose request id db08b7ce59c5aa1e
+33 verbose url raw /wego-enterprise
+34 verbose url resolving [ 'https://registry.npmjs.org/', './wego-enterprise' ]
+35 verbose url resolved https://registry.npmjs.org/wego-enterprise
+36 verbose request where is https://registry.npmjs.org/wego-enterprise
+37 info trying registry request attempt 1 at 20:25:53
+38 http PUT https://registry.npmjs.org/wego-enterprise
+39 http 403 https://registry.npmjs.org/wego-enterprise
+40 verbose headers { 'content-type': 'application/json',
+40 verbose headers   'cache-control': 'max-age=60',
+40 verbose headers   'content-length': '128',
+40 verbose headers   'accept-ranges': 'bytes',
+40 verbose headers   date: 'Mon, 08 Jun 2015 12:22:16 GMT',
+40 verbose headers   via: '1.1 varnish',
+40 verbose headers   connection: 'keep-alive',
+40 verbose headers   'x-served-by': 'cache-fra1243-FRA',
+40 verbose headers   'x-cache': 'MISS',
+40 verbose headers   'x-cache-hits': '0',
+40 verbose headers   'x-timer': 'S1433766135.484293,VS0,VE880' }
+41 error publish Failed PUT 403
+42 error Error: "You cannot publish over the previously published version 0.0.1. Try bumping the version to 1.0.0" : wego-enterprise
+42 error     at RegClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:308:14)
+42 error     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:246:65)
+42 error     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:236:22)
+42 error     at Request.emit (events.js:98:17)
+42 error     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1142:14)
+42 error     at Request.emit (events.js:117:20)
+42 error     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1096:12)
+42 error     at IncomingMessage.emit (events.js:117:20)
+42 error     at _stream_readable.js:944:16
+42 error     at process._tickCallback (node.js:448:13)
+43 error If you need help, you may report this *entire* log,
+43 error including the npm and node versions, at:
+43 error     <http://github.com/npm/npm/issues>
+44 error System Linux 3.13.0-53-generic
+45 error command "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+46 error cwd /home/ec/workspace/bhf-qiyehao
+47 error node -v v0.10.38
+48 error npm -v 1.4.28
+49 verbose exit [ 1, true ]

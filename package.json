@@ -1,6 +1,6 @@
 {
   "name": "wego-enterprise",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "微信企业号 node版 API",
   "homepage": "https://github.com/huyinghuan/wego-enterprise",
   "bugs": {
@@ -22,6 +22,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
+    "pretest": "coffee --no-header -o ./ -c src/",
     "prepublish": "coffee --no-header -o ./ -c src/"
   }
 }
