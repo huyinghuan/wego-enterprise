@@ -23,27 +23,32 @@
   
 #### 构造函数
 
-```
+```coffee
+  ###
+    构造函数
+    @params {string} 开发者凭据 CorpID
+    @params {string} 开发者凭据 Secret
+    
+    @return {AccessToken}
+  ###
   accessToken = new AccessToken(CorpID, Secret)
-  构造函数
-  @params {string} 开发者凭据 CorpID
-  @params {string} 开发者凭据 Secret
-  
-  @return {AccessToken}
 ```
 
 #### get
 
   获取 token
   
-```
+```coffee
+  ###
+    @params {function} 回调函数
+      该回调函数应该接收以下参数：
+        @params {object | string | null} 获取token出错的信息
+        @params {string} 获取的token
+  
+    @return null
+  ###
+  
   accessToken.get(callback)
-  @params {function} 回调函数
-    该回调函数应该接收以下参数：
-      @params {object | string | null} 获取token出错的信息
-      @params {string} 获取的token
-
-  @return null
 ```
 
 ### Message
@@ -52,41 +57,48 @@
   
 #### 构造函数
 
-```
-  message = new Message(token, agentid)
-  @params {string}  接口访问token
-  @params {string}  应用id
+```coffee
+  ###
+    @params {string}  接口访问token
+    @params {string}  应用id
+    
+    @return {Message}
+  ###
   
-  @return {Message}
+  message = new Message(token, agentid)
 ```
 
 #### sendText
 
   发送文本消息
   
-```
+```coffee
+  ###
+    ＠params {string | array<string> } 用户ID 或者 ID数组 。必须
+    @params {string} 消息内容。 必须
+    @params {Function} 回调函数, 自定义。 可选
+      该回调函数 Function 应该接收以下参数
+        @params {object | null}  错误堆栈，如果没有发生错误则为null
+        @params {number} 消息发送结果状态
+          500 请求错误或者网络错误
+          403 token 过期
+          200 发送成功
+          400 未知错误
+        @params {object | null | undefined} 服务器返回的具体结果
+    
+    @return null
+  ###
   message.sendText(userID, content, callback)
-  ＠params {string | array<string> } 用户ID 或者 ID数组 。必须
-  @params {string} 消息内容。 必须
-  @params {Function} 回调函数, 自定义。 可选
-    该回调函数 Function 应该接收以下参数
-      @params {object | null}  错误堆栈，如果没有发生错误则为null
-      @params {number} 消息发送结果状态
-        500 请求错误或者网络错误
-        403 token 过期
-        200 发送成功
-        400 未知错误
-      @params {object | null | undefined} 服务器返回的具体结果
-  
-  @return null
 ```
 
 #### setToken
 
   token失效后 重新设置 token
   
-```
+```coffee
+  ###
+    @params {string} token
+    @return {null}
+  ###
   message.setToken(token)
-  @params {string} token
-  @return {null}
 ```
