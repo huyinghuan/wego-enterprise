@@ -1,0 +1,7 @@
+node_modules
+.idea
+lib
+test
+!/src/lib
+!src/test
+src/test/config.coffee

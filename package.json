@@ -1,0 +1,27 @@
+{
+  "name": "wego-enterprise",
+  "version": "0.0.1",
+  "description": "微信企业号 node版 API",
+  "homepage": "https://github.com/huyinghuan/wego-enterprise",
+  "bugs": {
+    "url": "https://github.com/huyinghuan/wego-enterprise/issues",
+    "email": "ec.huyinghuan@gmail.com"
+  },
+  "keywords": [
+    "微信",
+    "微信企业号"
+  ],
+  "author": "ec.huyinghuan@gmail",
+  "dependencies": {
+    "lodash": "^3.9.3",
+    "request": "^2.57.0"
+  },
+  "devDependencies": {
+    "should": "^6.0.3"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "coffee --no-header -o ./ -c src/"
+  }
+}
