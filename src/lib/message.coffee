@@ -87,6 +87,8 @@ class Message
     if body.errcode is API.status.OK
       return callback(null, 200, body)
 
+    console.log body
+
     callback(null, 400, body) #该错误服务被理解
 
 

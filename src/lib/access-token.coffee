@@ -21,7 +21,7 @@ class AccessToken
   @return null
   ###
   get: (cb)->
-    request(tokenUrl, {json: true},(error, resp, body)->
+    request(@tokenUrl, {json: true},(error, resp, body)->
       return cb(error) if error
       return cb("无法返回结果") if not body
       if body.access_token
