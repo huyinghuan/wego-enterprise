@@ -3,23 +3,15 @@ request = require 'request'
 http = require 'http'
 
 API = require './api'
-
-class Message
+Base = require './base'
+class Message extends Base
   ###
     @params {string}  接口访问token
     @params {string}  应用id
   ###
-  constructor: (token, agentid)->
-    @token = token
-    @agentid = agentid
+  constructor: ->
+    super
 
-
-  ###
-    重新设置token
-    @params {string} token
-    @return {null}
-  ###
-  setToken: (token)-> @token = token
 
   ###
     构建发送消息体
@@ -73,23 +65,6 @@ class Message
       },
       (error, resp, body)-> self.dealResult(error, resp, body, callback)
     )
-
-  getAPI: (api)-> "#{api}?access_token=#{@token}"
-
-  dealResult: (error, resp, body, callback)->
-    callback = callback or ->
-    if error or resp.statusCode isnt 200
-      return callback(error, 500) #网络错误，没有发送出去
-
-    if body.errcode is API.status.access_token_expired
-      return callback(null, 403) #token 过期
-
-    if body.errcode is API.status.OK
-      return callback(null, 200, body)
-
-    console.log body
-
-    callback(null, 400, body) #该错误服务被理解
 
 
 module.exports = Message
