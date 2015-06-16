@@ -51,10 +51,10 @@
   accessToken.get(callback)
 ```
 
-### Message
+### Base 基础类
 
-  消息发送接口
-  
+  该类的所有方法成员函数和构造函数将被子类继承，无法直接使用
+
 #### 构造函数
 
 ```coffee
@@ -62,11 +62,36 @@
     @params {string}  接口访问token
     @params {string}  应用id
     
-    @return {Message}
+    @return {Base} 
   ###
   
-  message = new Message(token, agentid)
+  #这里的 T 使用时为其对应的子类，t 为对应之类实例
+  #如: message = new Message(token, agentid)
+  
+  t = new T(token, agentid)
 ```
+
+#### setToken
+
+  token失效后 重新设置 token
+  
+```coffee
+  ###
+    @params {string} token
+    @return {null}
+  ###
+  t.setToken(token)
+```
+
+
+### Message extends Base
+
+  消息发送接口
+  
+#### 构造函数
+
+  继承父类
+
 
 #### sendText
 
@@ -91,14 +116,87 @@
   message.sendText(userID, content, callback)
 ```
 
-#### setToken
 
-  token失效后 重新设置 token
+
+### Member
+  通讯录管理（注意需要在微信权限控制面板中给相应应用增加通讯录管理权限）
+  
+#### 构造函数
+  继承父类
+
+#### create
+  创建成员
   
 ```coffee
   ###
-    @params {string} token
-    @return {null}
+    @params {JSON object} 成员对象
+      必须包含 userid, name, weixinid. 其他属性请参考微信文档如下:
+      参数	必须	说明
+      access_token	是	调用接口凭证
+      userid	是	成员UserID。对应管理端的帐号，企业内必须唯一。长度为1~64个字节
+      name	是	成员名称。长度为1~64个字节
+      department	否	成员所属部门id列表。注意，每个部门的直属成员上限为1000个
+      position	否	职位信息。长度为0~64个字节
+      mobile	否	手机号码。企业内必须唯一，mobile/weixinid/email三者不能同时为空
+      gender	否	性别。1表示男性，2表示女性
+      email	否	邮箱。长度为0~64个字节。企业内必须唯一
+      weixinid	否	微信号。企业内必须唯一。（注意：是微信号，不是微信的名字）
+      extattr	否	扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值
+    
+    @params {function} 回调函数
+      回调函数必须接收 3个参数 error, statuscode, body
+        当statuscode为200时操作成功，其它时操作失败，失败信息请参考body和error
+    
+    @return null
+
   ###
-  message.setToken(token)
+  member.create({
+        "userid": "huyinghuan"
+        "name": "张三"
+        "weixinid": "ec_huyinghuan"
+      }, (error, statuscode, body)->
+        (statuscode is 200).should.be.true
+        done()
+      )
 ```
+
+#### update
+
+ 更新成员信息
+ 
+```coffee
+    ###
+      @params {JSON object}, 必须包含 userid, 其他字段非必须， 其他属性参考上文 create 函数说明
+      @params {function} 同上文创建函数
+    ###
+    member.update({
+        "userid": "huyinghuan"
+        "name": "王五"
+      }, (error, statuscode, body)->
+        (statuscode is 200).should.be.true
+        done()
+    )
+```
+
+#### get
+
+  获取成员信息
+  
+```coffee
+  ###
+    @params {string} 成员id 必须
+    @params {function} 回调,同上文create，获取的信息包含在body中，body为JSON对象
+  ###
+  member.get("huyinghuan", (error, statuscode, body)->
+        console.log statuscode
+        (statuscode is 200).should.be.true
+        console.log body
+        done()
+      )
+```
+
+## History
+
+v0.0.3
+
+  增加成员管理

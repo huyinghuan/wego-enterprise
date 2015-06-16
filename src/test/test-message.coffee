@@ -7,7 +7,7 @@ describe("发送消息", ->
 
   message = new Message(config.token, config.agentid)
 
-  describe.only("单个用户", ->
+  describe("单个用户", ->
     it("发送成功", (done)->
       message.sendText(["huyinghuan"], "Hello World!", (error, status, body)->
         console.log status

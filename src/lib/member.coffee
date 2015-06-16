@@ -47,4 +47,26 @@ class Member extends Base
     (error, resp, body)-> self.dealResult(error, resp, body, callback)
     )
 
+  ###
+    更新成员
+  ###
+  update: (member, callback)->
+    self = @
+    request.post({
+        url: self.getAPI(API.update_member)
+        body: member
+        json: true
+      },
+      (error, resp, body)-> self.dealResult(error, resp, body, callback)
+    )
+
+  ###
+  获取成员
+  ###
+  get: (userid, callback)->
+    self = @
+    request.post({url: self.getAPI(API.get_member, {userid: userid}), json: true}
+      ,(error, resp, body)-> self.dealResult(error, resp, body, callback)
+    )
+
 module.exports = Member

@@ -3,7 +3,12 @@ API = require '../lib/api'
 class Base
   constructor: (@token, @agentid)->
 
-  getAPI: (api)-> "#{api}?access_token=#{@token}"
+  getAPI: (api, params = {})->
+    queue = ["access_token=#{@token}"]
+    for key, value of params
+      queue.push("#{key}=#{value}")
+
+    "#{api}?#{queue.join('&')}"
 
   ###
     重新设置token
