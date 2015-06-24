@@ -1,6 +1,6 @@
 {
   "name": "wego-enterprise",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "微信企业号 node版 API",
   "homepage": "https://github.com/huyinghuan/wego-enterprise",
   "bugs": {

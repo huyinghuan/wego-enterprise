@@ -28,6 +28,9 @@ class Base
     if body.errcode is API.status.access_token_expired
       return callback(null, 403) #token 过期
 
+    if body.errcode is API.status.access_token_miss
+      return callback(null, 403) #token 缺少
+
     if body.errcode is API.status.OK
       return callback(null, 200, body)
 

@@ -13,4 +13,5 @@ module.exports =
   get_member: "#{baseUrl}user/get"
   status:
     access_token_expired: 42001
+    access_token_miss: 41001
     OK: 0
